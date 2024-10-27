@@ -1,16 +1,17 @@
 package E1;
 
 import java.util.HashSet;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
         int[] numbersArray = { 111, 222, 333, 444, 556};
-        HashSet<Integer> numbersSet = new HashSet<>();
+        Set<Integer> numbersSet = new HashSet<>();
         for (int number : numbersArray) {
             numbersSet.add(number);
         }
 
-        HashSet<Integer> listResult = new HashSet<>();
+        Set<Integer> listResult = new HashSet<>();
         for (Integer i : numbersSet) {
             if (divisibleByThree(i)) {
                 listResult.add(i);

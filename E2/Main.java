@@ -1,89 +1,73 @@
 package E2;
 
-import E2.Controller.BookingController;
-import E2.Controller.CustomerController;
-import E2.Controller.RoomController;
-import E2.Entity.Booking;
-import E2.Entity.Customer;
-import E2.Entity.Room;
-import E2.Entity.RoomType;
-import E2.Service.BookingService;
-import E2.Service.CustomerService;
-import E2.Service.RoomService;
+import E2.Entity.Department;
+import E2.Entity.Employee;
+import E2.Entity.Gender;
 
-import java.time.LocalDateTime;
-import java.util.Scanner;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
-        BookingService bookingService = new BookingService();
-        CustomerService customerService = new CustomerService();
-        RoomService roomService = new RoomService();
+        List<Department> departments = new ArrayList<Department>();
+        List<Employee> employees = new ArrayList<Employee>();
 
-        BookingController bookingController = new BookingController(bookingService);
-        CustomerController customerController = new CustomerController(customerService);
-        RoomController roomController = new RoomController(roomService);
+        departments.add(new Department(1, "HR", "Human Resource"));
+        departments.add(new Department(2, "IT", "Information Technology"));
 
-        customerController.addCustomer(new Customer(1, "John Doe", "123456789"));
-        customerController.addCustomer(new Customer(2, "Jane Smith", "987654321"));
-        roomController.addRoom(new Room(1, RoomType.SINGLE, 89.0));
-        roomController.addRoom(new Room(2, RoomType.DOUBLE, 125.0));
-        roomController.addRoom(new Room(3, RoomType.QUEEN, 150.0));
-        //Id book
-        Scanner scanner = new Scanner(System.in);
-        int bookingId = bookingService.generateBookingId();
-        //Id cus
-        System.out.println("Enter Customer ID: ");
-        int customerId = scanner.nextInt();
-        Customer customer = customerController.getCustomer(customerId);
-        //Id room
-        System.out.println("Enter Room ID: ");
-        int roomId = scanner.nextInt();
-        Room room = roomController.getRoom(roomId);
-        //Room type
-        System.out.println("Select Room Type: ");
-        System.out.println("1. SINGLE\n2. DOUBLE\n3. QUEEN\n4. QUAD\n5. TRIPLE");
-        int roomTypeChoice = scanner.nextInt();
-        scanner.nextLine();
+        employees.add(new Employee(1, "Yugi", departments.get(0), Gender.FEMALE, LocalDate.of(2001, 10, 1)));
+        employees.add(new Employee(2, "Yugi", departments.get(1), Gender.FEMALE, LocalDate.of(2001, 1, 1)));
+        employees.add(new Employee(3, "Mutou", departments.get(0), Gender.MALE, LocalDate.of(2003, 2, 2)));
 
-        RoomType roomType;
-        switch (roomTypeChoice) {
-            case 1:
-                roomType = RoomType.SINGLE;
-                break;
-            case 2:
-                roomType = RoomType.DOUBLE;
-                break;
-            case 3:
-                roomType = RoomType.QUEEN;
-                break;
-            case 4:
-                roomType = RoomType.QUAD;
-                break;
-            case 5:
-                roomType = RoomType.TRIPLE;
-                break;
-            default:
-                System.out.println("Invalid choice! Exiting booking.");
-                return;
-        }
-        System.out.println("Enter Check-in Date (yyyy-MM-ddTHH:mm): ");
-        LocalDateTime checkIn = LocalDateTime.parse(scanner.nextLine());
+        Map<String, Long> countEmployees = new HashMap<>();
 
-        System.out.println("Enter Check-out Date (yyyy-MM-ddTHH:mm): ");
-        LocalDateTime checkOut = LocalDateTime.parse(scanner.nextLine());
-
-        Booking booking = new Booking(bookingId, customer, room, checkIn, checkOut);
-        bookingController.createBooking(booking);
-
-        System.out.println("Enter customer Name:  ");
-        String customerName = scanner.nextLine();
-        System.out.println("Enter customer Phone:  ");
-        String customerPhone = scanner.nextLine();
-        System.out.println("Enter room ID:  ");
-        int roomFindId = scanner.nextInt();
-        bookingController.findBooking(customerName,customerPhone,roomFindId);
-        bookingController.priceRoomHour();
+        //C1
+        departments.stream().forEach(department -> {
+            long totalEmp = employees.stream()
+                    .filter(emp -> department.getId() == emp.getDepartment().getId())
+                    .collect(Collectors.toSet())
+                    .stream().count();
+            countEmployees.put(department.getCode(), totalEmp);
+        });
+        System.out.println(countEmployees);
+        //C2
+        departments.forEach(d -> {
+            employees.stream()
+                    .filter(emp -> emp.getDepartment().getId() == d.getId())
+                    .map(employee -> {
+                        return countEmployees.put(d.getCode(), countEmployees.getOrDefault(d.getCode(), 0L) + 1);
+                    });
+        });
+        System.out.println(countEmployees);
+        //C3
+        departments.stream().forEach(department -> {
+            Set<Employee> employeeSet = employees.stream()
+                    .filter(employee -> employee.getDepartment().getId() == department.getId())
+                    .collect(Collectors.toSet());
+            countEmployees.put(department.getCode(), (long) employeeSet.size());
+        });
+        System.out.println(countEmployees);
+        //count employees by GenderMale
+        Map<String, Long> countMaleEmployees = new HashMap<>();
+        departments.forEach(department -> {
+            long maleEmpCount = employees.stream()
+                    .filter(emp -> emp.getDepartment().getId() == department.getId() &&
+                            emp.getGender() == Gender.MALE)
+                    .count();
+            countMaleEmployees.put(department.getCode(), maleEmpCount);
+        });
+        System.out.println(countMaleEmployees);
+        //count emp dob
+        Map<String, Set<Employee>> employeeDoB = new HashMap<>();
+        int currentMonth = LocalDate.now().getMonthValue();
+        departments.forEach(department -> {
+            Set<Employee> dobEmp = employees.stream()
+                    .filter(emp -> emp.getDepartment().getId() == department.getId() &&
+                            emp.getDob().getMonthValue() == currentMonth)
+                    .collect(Collectors.toSet());
+            employeeDoB.put(department.getCode(), dobEmp);
+        });
+        System.out.println(employeeDoB);
     }
-
 }

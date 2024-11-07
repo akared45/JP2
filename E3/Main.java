@@ -33,7 +33,6 @@ public class Main {
         customers.add(new Customer(2, "002", "Mr. Bill", "91124235346467"));
         customers.add(new Customer(3, "003", "Mr. Turing", "911423534646"));
 
-        // Bước 3: Thêm dữ liệu mẫu cho Booking
         bookings.add(new Booking(1, rooms.get(0), customers.get(0),
                 LocalDateTime.parse("2023-03-15 09:30:15", formatter),
                 LocalDateTime.parse("2023-03-16 12:30:45", formatter)));

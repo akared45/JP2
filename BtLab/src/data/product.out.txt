@@ -1,0 +1,7 @@
+Total clicks for products with code C002: 11
+Total clicks for products with code C001: 30
+Total clicks for products with code C003: 32
+Total clicks for the month: 73
+Total clicks for product code C002: 11, Percentage: 15,07%
+Total clicks for product code C001: 30, Percentage: 41,10%
+Total clicks for product code C003: 32, Percentage: 43,84%

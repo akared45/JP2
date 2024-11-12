@@ -8,10 +8,14 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ProductService {
-    private final List<Product> productList;
+    private List<Product> productList;
 
     public ProductService(List<Product> productList) {
         this.productList = productList;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.productList = products;
     }
 
     public Map<String, Integer> totalClicksPerCode(Month month) {

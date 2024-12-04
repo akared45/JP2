@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      alignment="CENTER" spacing="10.0" prefWidth="400" prefHeight="300">
+    <Label fx:id="generic" text="Generic trong Java là một tính năng cho phép bạn định nghĩa các lớp, giao diện và phương thức mà có thể làm việc với các loại dữ liệu khác nhau mà không cần phải xác định trước kiểu dữ liệu đó. "></Label>
+</VBox>

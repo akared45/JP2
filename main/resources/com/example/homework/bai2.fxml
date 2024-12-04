@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.homework.Bai2Controller"
+      alignment="CENTER" spacing="10.0" prefWidth="400" prefHeight="300">
+    <ListView fx:id="oopFeaturesList" prefHeight="150.0" prefWidth="200.0"
+              onMouseClicked="#showFeatureDetails"/>
+    <TextArea fx:id="featureDetails" editable="false" prefHeight="100.0" prefWidth="300.0" />
+</VBox>

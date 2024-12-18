@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.dsa.StudentFormController">
+    <children>
+        <Label layoutX="20.0" layoutY="20.0" text="Tên:" />
+        <TextField fx:id="nameField" layoutX="100.0" layoutY="15.0" prefWidth="200.0" />
+
+        <Label layoutX="20.0" layoutY="60.0" text="Tuổi:" />
+        <TextField fx:id="ageField" layoutX="100.0" layoutY="55.0" prefWidth="200.0" />
+
+        <Label layoutX="20.0" layoutY="100.0" text="Quê quán:" />
+        <TextField fx:id="hometownField" layoutX="100.0" layoutY="95.0" prefWidth="200.0" />
+
+        <Button fx:id="addButton" layoutX="100.0" layoutY="140.0" text="Thêm" />
+
+        <Label layoutX="20.0" layoutY="190.0" text="Danh sách sinh viên:" />
+        <TableView fx:id="studentTable" layoutX="20.0" layoutY="220.0" prefHeight="150.0" prefWidth="550.0">
+            <columns>
+                <TableColumn fx:id="nameColumn" prefWidth="200.0" />
+                <TableColumn fx:id="ageColumn" prefWidth="100.0" />
+                <TableColumn fx:id="hometownColumn" prefWidth="250.0" />
+            </columns>
+        </TableView>
+    </children>
+</Pane>

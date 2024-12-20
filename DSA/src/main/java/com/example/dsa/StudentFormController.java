@@ -103,7 +103,6 @@ public class StudentFormController {
         for (int i = 0; i < sortedList.size() - 1; i++) {
             for (int j = 0; j < sortedList.size() - i - 1; j++) {
                 if (sortedList.get(j).getAge() > sortedList.get(j + 1).getAge()) {
-                    // Hoán đổi vị trí
                     Student temp = sortedList.get(j);
                     sortedList.set(j, sortedList.get(j + 1));
                     sortedList.set(j + 1, temp);
